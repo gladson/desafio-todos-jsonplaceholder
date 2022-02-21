@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  flask:
+    container_name: todos_framework_container
+    build:
+      context: .
+      dockerfile: flask_dockerfile
+    ports:
+      - "8080:5000"
+    volumes:
+      - ./todos_framework:/todos_framework
+    working_dir: /todos_framework

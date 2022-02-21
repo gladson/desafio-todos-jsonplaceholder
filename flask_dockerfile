@@ -1,0 +1,21 @@
+# baixa a imagem selecionada python do hub.docker.com
+FROM python:3.10-alpine
+
+# cria o diretório principal dentro do container chamado todos_framework
+WORKDIR /todos_framework
+
+ENV FLASK_APP main.py
+ENV FLASK_RUN_HOST 0.0.0.0
+ENV FLASK_ENV production
+
+# copia todos os arquivos da pasta flask para dentro do diretório todos_framework no container
+COPY ./todos_framework .
+
+# copia o requirements para dentro do diretório todos_framework no container
+COPY requirements-prod.txt requirements.txt
+
+# instala o flask e suas dependencias
+RUN pip install -r requirements.txt
+
+# comando para rodar o flask ao iniciar o container
+CMD ["flask", "run", "--host", "0.0.0.0", "--no-debugger", "--no-reload"]
